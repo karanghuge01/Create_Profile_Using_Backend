@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-image: url('https://t4.ftcdn.net/jpg/02/10/45/95/360_F_210459536_XmLDEcKq2DpeNLVmheuWeu9NM9aGKnih.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <div class="bg-white bg-opacity-60 p-8 rounded-lg shadow-lg w-full max-w-5xl backdrop-filter backdrop-blur-lg">
+        <div class="w-full flex justify-end">
+        <a class="bg-red-500 rounded-md px-3 py-2  mb-5 inline-block" href="/logout">Logout</a>
+       </div> 
+        <h3 class="flex items-center justify-center text-3xl mb-6">Hello, <%= user.name%></h3>
+    
+        <!-- Profile Header -->
+        <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center">
+                <div class="relative w-40 h-40">
+                    <img src="https://i.pinimg.com/474x/41/2d/9f/412d9f8b1ef65221c65426fa8025ba82.jpg" alt="Profile Picture" class="rounded-full border-4 border-white shadow-lg mx-auto">
+                    <label class="absolute bottom-0 right-0 bg-indigo-600 text-white p-2 rounded-full cursor-pointer hover:bg-indigo-700">
+                        <input type="file" class="hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </label>
+                </div>
+            </div>
+            <div class="text-center">
+                <h1 class="text-3xl font-bold text-gray-800"><%= user.username %></h1>
+                <p class="text-sm text-gray-600"><%= user.email %></p>
+                <div class="mt-4 flex justify-center space-x-4">
+                    <button class="bg-indigo-600 text-white px-4 py-2 rounded-md font-semibold shadow-md hover:bg-indigo-700">Connect</button>
+                    <button class="bg-gray-600 text-white px-4 py-2 rounded-md font-semibold shadow-md hover:bg-gray-700">Message</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Stats and Create Post -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-8">
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800">500</h2>
+                <p class="text-sm text-gray-600">Followers</p>
+            </div>
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800">340</h2>
+                <p class="text-sm text-gray-600">Following</p>
+            </div>
+            <div>
+                <h2 class="text-2xl font-bold text-gray-800">120</h2>
+                <p class="text-sm text-gray-600">Posts</p>
+            </div>
+        </div>
+
+        <!-- User Details -->
+        <div class="mt-8">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">User Details</h3>
+            <div class="space-y-2 pb-7">
+                <p class="text-sm text-gray-700"><span class="font-semibold">Age:</span> <%= user.age%></p>
+                <p class="text-sm text-gray-700"><span class="font-semibold">Location:</span> New York, USA</p>
+                <p class="text-sm text-gray-700"><span class="font-semibold">Bio:</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum...</p>
+            </div>
+        </div>
+
+        <!-- Create Post Section -->
+    <form action="/post" method="post">
+        <div class="mb-8">
+            <button class="w-full bg-indigo-600 text-white py-2 rounded-md font-semibold shadow-md hover:bg-indigo-700">Create Post</button>
+            <textarea placeholder="What's on your mind?" class="mt-4 w-full p-4 border border-gray-300 rounded-md shadow-sm bg-white bg-opacity-80 text-gray-900 focus:ring-indigo-500 focus:border-indigo-500" name="content"></textarea>
+        </div>
+    </form>
+
+        <!-- Posts Section -->
+       
+
+
+        <div class="mb-8">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Recent Posts</h3>
+           
+            <% user.posts.reverse().forEach(function(post){   %>
+               
+            <div class="space-y-4">
+                <div class="bg-white bg-opacity-80 p-4 rounded-md shadow-md">
+                    <h4 class="text-lg font-bold text-gray-800">@<%= user.username %></h4>
+                    <p class="text-sm text-gray-700 mt-2"><%= post.content %></p>
+                    <small class="mt-1"><%= post.likes.length %> likes</small>
+                    <div class="mt-2 flex space-x-4">
+                        <a class="text-indigo-600 hover:underline" href="/like/<%= post._id %>">
+                            <%= post.likes.indexOf(user.id) === -1 ? "Like" : "Unlike" %> </a>
+                        <a class="text-indigo-600 hover:underline" href="/edit/<%= post._id %>">Edit</a>
+                        <button class="text-indigo-600 hover:underline">Read More</button>
+                    </div>
+                </div>
+                <% }) %>
+            
+                <!-- Additional posts can be added similarly -->
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

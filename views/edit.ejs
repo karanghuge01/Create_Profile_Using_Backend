@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-image: url('https://t4.ftcdn.net/jpg/02/10/45/95/360_F_210459536_XmLDEcKq2DpeNLVmheuWeu9NM9aGKnih.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <div class="bg-white bg-opacity-60 p-8 rounded-lg shadow-lg w-full max-w-5xl backdrop-filter backdrop-blur-lg">
+      
+        <!-- Create Post Section -->
+    <form action="/update/<%= post._id %>" method="post">
+        <div class="mb-8">
+          
+            <textarea placeholder="What's on your mind?" class="mt-4 w-full p-4 border border-gray-300 rounded-md shadow-sm bg-white bg-opacity-80 text-gray-900 focus:ring-indigo-500 focus:border-indigo-500" name="content"><%= post.content %></textarea>
+            <button class="w-full bg-indigo-600 text-white py-2 rounded-md font-semibold shadow-md hover:bg-indigo-700">Edit Post</button>
+
+        </div>
+    </form>
+
+   
+       
+
+
+      
+
+    </div>
+</body>
+</html>
